@@ -11,3 +11,8 @@ In case the status is blank, it sends the email to the script-sculpted address w
 And updates the status to "sent".
 
 Otherwise, it goes on.
+
+
+
+THE CODE:
+The script is contained in the file script.txt. I highlighted with the "' Edit" tag the points that may require adaptation.
