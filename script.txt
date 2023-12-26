@@ -1,0 +1,58 @@
+Sub SendEmailsBasedOnDate()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim currentRow As Long
+    Dim outlookApp As Object
+    Dim outlookMail As Object
+    
+    ' Set the worksheet variable to the desired sheet
+    Set ws = ThisWorkbook.Sheets("Sheet name")  ' Edit
+    
+    ' Find the last used row in column A
+    lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+    
+    ' Create an Outlook application object
+    Set outlookApp = CreateObject("Outlook.Application")
+
+    
+    ' Loop through each row starting from row 2 (assuming headers are in row 1)
+    For currentRow = 2 To lastRow
+        If IsDate(ws.Cells(currentRow, "X").Value) And IsDate(ws.Cells(currentRow, "Y").Value) Then  ' Edit
+            ' Check if today's date matches the date in column X or Y  
+            If Date = CDate(ws.Cells(currentRow, "X").Value) Then  ' Edit
+                ' Create an Outlook mail item
+                Set outlookMail = outlookApp.CreateItem(0)
+                
+                ' Set the email properties with Subject based on column X
+                outlookMail.Subject = ws.Cells(1, "X").Value ' Edit
+                outlookMail.To = "dummy@icloud.com"  ' Edit
+                outlookMail.Body = ws.Cells(currentRow, "Z").Value ' Edit
+                
+                ' Send the email
+                outlookMail.Send
+                
+                ' Release the Outlook mail object
+                Set outlookMail = Nothing
+            ElseIf Date = CDate(ws.Cells(currentRow, "Y").Value) Then ' Edit
+                ' Create an Outlook mail item for Column Y
+                Set outlookMail = outlookApp.CreateItem(0)
+                
+                ' Set the email properties with Subject based on column Y
+                outlookMail.Subject = ws.Cells(1, "Y").Value    ' Edit
+                outlookMail.To = "dummy@icloud.com"    ' Edit
+                outlookMail.Body = ws.Cells(currentRow, "Z").Value ' Edit
+                
+                ' Send the email
+                outlookMail.Send
+                
+                ' Release the Outlook mail object
+                Set outlookMail = Nothing
+            End If
+        End If
+    Next currentRow
+    
+    ' Release the Outlook application object
+    Set outlookApp = Nothing
+    
+    MsgBox "Emails sent successfully."
+End Sub
