@@ -1,0 +1,53 @@
+Sub SetStatusToSent()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim currentRow As Long
+    Dim EmailsSent As Long
+
+    Set ws = ThisWorkbook.Sheets("sheetname") ' Edit
+    lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+
+    For currentRow = 2 To lastRow
+
+    If IsDate(ws.Cells(currentRow, "T").Value) And IsDate(ws.Cells(currentRow, "X").Value) And IsDate(ws.Cells(currentRow, "Y").Value) Then
+            ' Check if today's date matches the date in column X or Y
+            If Date >= CDate(ws.Cells(currentRow, "T").Value) And CDate(ws.Cells(currentRow, "T").Value) > 100 Then
+                
+                If ws.Cells(currentRow, "AY").Value <> "sent" Then
+
+                    ws.Cells(currentRow, "AY") = "sent"
+                    EmailsSent = "1"
+                
+                End If
+            End If
+
+            If Date >= CDate(ws.Cells(currentRow, "X").Value) And CDate(ws.Cells(currentRow, "Y").Value) > 100 Then
+                
+                If ws.Cells(currentRow, "AZ").Value <> "sent" Then
+
+                    ws.Cells(currentRow, "AZ") = "sent"
+                    EmailsSent = "1"
+                
+                End If
+            End If
+            
+            If Date >= CDate(ws.Cells(currentRow, "Y").Value) And CDate(ws.Cells(currentRow, "Y").Value) > 100 Then
+                
+                If ws.Cells(currentRow, "BA").Value <> "sent" Then
+
+                    ws.Cells(currentRow, "BA") = "sent"
+                    EmailsSent = "1"
+                    
+                End If
+            End If
+    End If
+    Next currentRow
+    
+    Set outlookApp = Nothing
+    If EmailsSent <> "1" Then
+        MsgBox "Status not updated."
+    Else
+        MsgBox "Status updated successfully."
+    End If
+    
+End Sub
