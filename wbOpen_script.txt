@@ -1,0 +1,155 @@
+Private Sub Workbook_Open()
+    SendEmailsBasedOnDate1
+    SendEmailsBasedOnDate2
+
+End Sub
+
+Sub SendEmailsBasedOnDate1()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim currentRow As Long
+    Dim outlookApp As Object
+    Dim outlookMail As Object
+    Dim EmailsSent As Long
+    
+    ' Set the worksheet variable to the desired sheet
+    Set ws = ThisWorkbook.Sheets("worksheet")
+    ' Find the last used row in column A
+    lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+    ' Create an Outlook application object
+    Set outlookApp = CreateObject("Outlook.Application")
+
+    ' Loop through each row starting from row 2 (assuming headers are in row 1)
+    For currentRow = 2 To lastRow
+        If IsDate(ws.Cells(currentRow, "X").Value) And IsDate(ws.Cells(currentRow, "Y").Value) And IsDate(ws.Cells(currentRow, "T").Value) Then
+
+            If Date >= CDate(ws.Cells(currentRow, "T").Value) And CDate(ws.Cells(currentRow, "T").Value) > 100 Then
+                
+                If ws.Cells(currentRow, "AY").Value <> "sent" Then
+
+                    Set outlookMail = outlookApp.CreateItem(0)
+                    outlookMail.Subject = ws.Cells(1, "T").Value
+                    outlookMail.To = "dummy@email.com"
+                    outlookMail.Body = ws.Cells(currentRow, "U").Value
+                    outlookMail.Send
+                    Set outlookMail = Nothing
+                    
+                    ws.Cells(currentRow, "AY") = "sent"
+                    EmailsSent = "1"
+                
+                End If
+            End If
+
+
+            If Date >= CDate(ws.Cells(currentRow, "X").Value) And CDate(ws.Cells(currentRow, "X").Value) > 100 Then
+                
+                If ws.Cells(currentRow, "AZ").Value <> "sent" Then
+
+                    Set outlookMail = outlookApp.CreateItem(0)
+                    outlookMail.Subject = ws.Cells(1, "X").Value
+                    outlookMail.To = "dummy@email.com"
+                    outlookMail.Body = ws.Cells(currentRow, "Z").Value ' Use the value from column Z as the email body
+                    outlookMail.Send
+                    Set outlookMail = Nothing
+                    
+                    ws.Cells(currentRow, "AZ") = "sent"
+                    EmailsSent = "1"
+                
+                End If
+            End If
+            
+            If Date >= CDate(ws.Cells(currentRow, "Y").Value) And CDate(ws.Cells(currentRow, "Y").Value) > 100 Then
+                
+                If ws.Cells(currentRow, "BA").Value <> "sent" Then
+
+                    Set outlookMail = outlookApp.CreateItem(0)
+                    outlookMail.Subject = ws.Cells(1, "Y").Value
+                    outlookMail.To = "dummy@email.com"
+                    outlookMail.Body = ws.Cells(currentRow, "Z").Value
+                    outlookMail.Send
+                    Set outlookMail = Nothing
+                    
+                    ws.Cells(currentRow, "BA") = "sent"
+                    EmailsSent = "1"
+                    
+                End If
+            End If
+        End If
+    Next currentRow
+    
+    ' Release the Outlook application object
+    Set outlookApp = Nothing
+    
+    If EmailsSent <> "1" Then
+        MsgBox "No email to send for this sheet."
+    Else
+        MsgBox "Emails sent correctly."
+    End If
+    
+End Sub
+
+Sub SendEmailsBasedOnDate2()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim currentRow As Long
+    Dim outlookApp As Object
+    Dim outlookMail As Object
+    Dim EmailsSent As Long
+
+    ' Set the worksheet variable to the desired sheet
+    Set ws = ThisWorkbook.Sheets("worksheet")
+    ' Find the last used row in column A
+    lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+    ' Create an Outlook application object
+    Set outlookApp = CreateObject("Outlook.Application")
+    
+
+    ' Loop through each row starting from row 2 (assuming headers are in row 1)
+    For currentRow = 2 To lastRow
+        If IsDate(ws.Cells(currentRow, "AD").Value) And IsDate(ws.Cells(currentRow, "AE").Value) Then
+            ' Check if today's date matches the date in column X or Y
+            If Date >= CDate(ws.Cells(currentRow, "AD").Value) And CDate(ws.Cells(currentRow, "AD").Value) > 100 Then
+            
+                If ws.Cells(currentRow, "AZ").Value <> "sent" Then
+
+                    Set outlookMail = outlookApp.CreateItem(0)
+                    outlookMail.Subject = ws.Cells(1, "AD").Value
+                    outlookMail.To = "dummy@email.com"
+                    outlookMail.Body = ws.Cells(currentRow, "AF").Value
+                    outlookMail.Send
+                    Set outlookMail = Nothing
+
+                    ws.Cells(currentRow, "AZ") = "sent"
+                    EmailsSent = "1"
+                
+                End If
+            End If
+            If Date >= CDate(ws.Cells(currentRow, "AE").Value) And CDate(ws.Cells(currentRow, "AE").Value) > 100 Then
+                
+                If ws.Cells(currentRow, "BA").Value <> "sent" Then
+
+                    Set outlookMail = outlookApp.CreateItem(0)
+                    outlookMail.Subject = ws.Cells(1, "AE").Value
+                    outlookMail.To = "dummy@email.com"
+                    outlookMail.Body = ws.Cells(currentRow, "AF").Value
+                    outlookMail.Send
+                    Set outlookMail = Nothing
+                    
+                    ws.Cells(currentRow, "BA") = "sent"
+                    EmailsSent = "1"
+                    
+                End If
+            End If
+        End If
+    Next currentRow
+    
+    ' Release the Outlook application object
+    Set outlookApp = Nothing
+    
+    If EmailsSent <> "1" Then
+        MsgBox "No email to send for this sheet."
+    Else
+        MsgBox "Emails sent correctly."
+    End If
+    
+End Sub
