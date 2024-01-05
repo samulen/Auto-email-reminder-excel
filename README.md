@@ -1,9 +1,11 @@
-OVERVIEW
+# Automate reminder via mail using VBA
+
+## OVERVIEW
 This VBA script reads one excel sheet and, for every row, sends a reminder email in case the date contained in two columns is past and an email has not yet been sent.
 The script in this version can only be manually executed, even though the purpose is to have it scheduled. This can be done using the VBA Workbook_Open() event, combined with the OS task scheduler.
 
 
-Specifically:
+## SPECIFICALLY
 For every row,
 There should be two date columns, if they are past it checks two columns in which the status ("sent"/"") is stored, one for each deadline. 
 
@@ -16,5 +18,5 @@ Otherwise, it goes on.
 
 
 
-THE CODE:
+## THE CODE
 The script is contained in the file script.txt. I highlighted with the "' Edit" tag the points that may require adaptation.
