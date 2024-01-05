@@ -22,8 +22,9 @@ Otherwise, it goes on.
 
 ## THE CODE
 The project consists of two scripts:
-- first_run.txt: It updates the cell containing the status with "sent", in order to set as not to send the reminders before today 
-- wbOpen_script: It gets executed at the opening of the work book and sends the emails for two sheets 
+- first_run.txt: Updates the cell containing the status with "sent", in order to set as not to send the reminders before today.
+                 There should be one version per sheet. I gave a generic one that manages dates in three columns 'T', 'X' and 'Y'.
+- wbOpen_script: Gets executed at the opening of the work book and sends the emails for two sheets 
 
 I highlighted with the "' Edit" tag the points that may require adaptation.
 
