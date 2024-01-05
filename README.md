@@ -1,7 +1,13 @@
 # Automate reminder via mail using VBA
 
+## REQUIREMENTS
+- An xlsm workbook
+- VBA add-in
+- From VBA, add as a requirement Outlook 16.0
+
+
 ## OVERVIEW
-This VBA script reads one excel sheet and, for every row, sends a reminder email in case the date contained in two columns is past and an email has not yet been sent.
+This VBA script reads one excel sheet and, for every row, sends a reminder email in case the date contained in other columns is past and an email has not yet been sent.
 The script in this version can only be manually executed, even though the purpose is to have it scheduled. This can be done using the VBA Workbook_Open() event, combined with the OS task scheduler.
 
 
@@ -19,4 +25,10 @@ Otherwise, it goes on.
 
 
 ## THE CODE
-The script is contained in the file script.txt. I highlighted with the "' Edit" tag the points that may require adaptation.
+The project consists of two scripts:
+- first_run.txt: It updates the cell containing the status with "sent", in order to set as not to send the reminders before today 
+- wbOpen_script: It gets executed at the opening of the work book and sends the emails for two sheets 
+
+I highlighted with the "' Edit" tag the points that may require adaptation.
+
+Also, given the requirements of the project all the setups are static. With some adaptation and setup design can be made dynamic.
